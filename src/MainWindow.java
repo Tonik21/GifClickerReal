@@ -10,6 +10,7 @@ public class MainWindow  {
     JFrame gameWindow;
     JPanel panel;
     JButton gifButton;
+    JPanel leftPanel;
     List<Icon> frames = new ArrayList<>();
     public MainWindow() {
         makeGifList(frames);
@@ -26,32 +27,31 @@ public class MainWindow  {
         gifButton = new JButton();
         gifButton.setIcon(frames.getFirst());
         panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1, 10, 10));
-        gameWindow.add(panel);
+        gifButton.setContentAreaFilled(false);
+        gifButton.setBorderPainted(false);
+        gifButton.setFocusPainted(false);
+        gifButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+
         //TODO Fix problem with no pictures
         gifButton.addMouseListener(new MouseAdapter() {
             int counter = 0;
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 gifButton.setIcon(frames.get(counter));
-                if (counter == frames.size()){
-                    counter = 0;
-                }
-                counter++;
-
+                counter = (counter + 1) % frames.size();
             }
-
         });
+        panel.setLayout(new GridBagLayout());
         panel.add(gifButton);
+        gameWindow.add(panel, BorderLayout.CENTER);
     }
 
 
     public void makeGifList(List<Icon> list){
-        for (int i = 0; i < 10; i++) {
-            list.add(new ImageIcon("Assets/frame_0"+i+"_delay-0.2s.gif"));
-        }
-        for (int i = 10; i < 20; i++) {
-            list.add(new ImageIcon("Assets/frame_"+i+"_delay-0.2s.gif"));
+        for (int i = 0; i < 20; i++) {
+            list.add(new ImageIcon(getClass().getResource("/Asset/P"+(i+1)+".jpg")));
         }
     }
 }
