@@ -12,6 +12,7 @@ public class MainWindow  {
     JFrame gameWindow;
     JPanel panel;
     JButton gifButton;
+    JButton titleScreenButton;
     JPanel leftPanel;
     JLabel scoreLabel;
     List<Icon> frames = new ArrayList<>();
@@ -36,10 +37,7 @@ public class MainWindow  {
 
 
 
-
         gifButton.addMouseListener(new MouseAdapter() {
-
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 pl1.addClicks();
@@ -61,9 +59,13 @@ public class MainWindow  {
         //TODO left Panel for multiUpgrades, right for strength click based
         leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
-
+        titleScreenButton = new JButton("Return to title screen");
+        titleScreenButton.addActionListener(e->{
+            FirstWindow f1 = new FirstWindow();
+            gameWindow.setVisible(false);
+        });
         leftPanel.add(Box.createVerticalGlue()); // odtlaci cudlik dolu
-        leftPanel.add(new JButton("Return to title screen"));
+        leftPanel.add(titleScreenButton);
         gameWindow.add(leftPanel, BorderLayout.EAST);
     }
 
