@@ -4,7 +4,7 @@ import java.awt.*;
 public class UpgradeCard extends JPanel {
     public UpgradeCard(Upgrades upgrade, Player player, JLabel scoreLabel, boolean isMultiplier) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setMaximumSize(new Dimension(180, 100));
+        setMaximumSize(new Dimension(200, 75));
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
         JLabel nameLabel = new JLabel(upgrade.getNameOfUpgrade());
@@ -29,4 +29,8 @@ public class UpgradeCard extends JPanel {
                    buyButton.setEnabled(false);
             }}
         });
+        add(nameLabel);
+        add(priceLabel);
+        add(descLabel);
+        add(buyButton);
 }}

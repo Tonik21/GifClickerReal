@@ -20,7 +20,7 @@ public class FirstWindow {
     }
 
     public void init() {
-        introText = new JLabel("Vítejte ve Hře", JLabel.CENTER);
+        introText = new JLabel("Welcome to the game", JLabel.CENTER);
         introText.setOpaque(true);
         introText.setBackground(new Color(100, 200, 100, 25)); // Pro design
         introText.setFont(new Font("Comic Sans", Font.BOLD, 50));

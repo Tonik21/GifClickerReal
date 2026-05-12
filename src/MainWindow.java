@@ -16,6 +16,8 @@ public class MainWindow  {
     JPanel leftPanel;
     JLabel scoreLabel;
     List<Icon> frames = new ArrayList<>();
+    Upgrades upgrades = new Upgrades(100, 0.0, 3, "SilnoPrstI");
+    UpgradeCard ucCheapest = new UpgradeCard(upgrades, pl1, scoreLabel, false);
     public MainWindow() {
         makeGifList(frames);
         gameWindow = new JFrame("CLICK CLICK CLICK! ");
@@ -58,18 +60,29 @@ public class MainWindow  {
         gameWindow.add(scoreLabel, BorderLayout.NORTH);
         //TODO left Panel for multiUpgrades, right for strength click based
         leftPanel = new JPanel();
+        leftPanel.setPreferredSize(new Dimension(200,700));
         leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
+        leftPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        JLabel leftTitle = new JLabel("Click Strength");
+        leftTitle.setFont(new Font("Serif", Font.BOLD, 16));
+        leftTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+        leftPanel.add(leftTitle);
+        leftPanel.add(Box.createVerticalStrut(10));
+        leftPanel.add(ucCheapest);
+        leftPanel.add(Box.createVerticalStrut(10));
         titleScreenButton = new JButton("Return to title screen");
         titleScreenButton.addActionListener(e->{
-            FirstWindow f1 = new FirstWindow();
-            gameWindow.setVisible(false);
+            AreYouSureWindow areYouSureWindow = new AreYouSureWindow(this);
+
         });
         leftPanel.add(Box.createVerticalGlue()); // odtlaci cudlik dolu
         leftPanel.add(titleScreenButton);
         gameWindow.add(leftPanel, BorderLayout.EAST);
     }
 
-
+    public void closeWindow(){
+        gameWindow.dispose();
+    }
     public void makeGifList(List<Icon> list){
         for (int i = 0; i < 20; i++) {
             list.add(new ImageIcon(getClass().getResource("/Asset/P"+(i+1)+".jpg")));
