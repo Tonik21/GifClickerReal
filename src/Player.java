@@ -9,7 +9,7 @@ public class Player {
     private LocalDateTime timeOfEntrance;
 
     public Player() {
-        this.clicks = 0;
+        this.clicks = 101010010;
         this.clicksMultiplier = 1.0;
         this.strengthOfClicks = 1;
         this.timeOfExit = null;

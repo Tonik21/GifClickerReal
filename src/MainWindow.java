@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class MainWindow  {
@@ -16,8 +17,12 @@ public class MainWindow  {
     JPanel leftPanel;
     JLabel scoreLabel;
     List<Icon> frames = new ArrayList<>();
-    Upgrades upgrades = new Upgrades(100, 0.0, 3, "SilnoPrstI");
-    UpgradeCard ucCheapest = new UpgradeCard(upgrades, pl1, scoreLabel, false);
+    Upgrades StrengthUpgrade1 = new Upgrades(100, 0.0, 3, "SilnoPrstI");
+    Upgrades StrengthUpgrade2 = new Upgrades(1000, 0.0, 7, "SilnoPrstII");
+    Upgrades StrengthUpgrade3 = new Upgrades(10000, 0.0, 10, "SilnoPrstIII");
+    UpgradeCard StrengthUpgradeCard1 = new UpgradeCard(StrengthUpgrade1, pl1, scoreLabel, false);
+    UpgradeCard StrengthUpgradeCard2 = new UpgradeCard(StrengthUpgrade2, pl1, scoreLabel,false);
+    UpgradeCard StrengthUpgradeCard3 = new UpgradeCard(StrengthUpgrade3, pl1, scoreLabel,false);
     public MainWindow() {
         makeGifList(frames);
         gameWindow = new JFrame("CLICK CLICK CLICK! ");
@@ -68,12 +73,15 @@ public class MainWindow  {
         leftTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
         leftPanel.add(leftTitle);
         leftPanel.add(Box.createVerticalStrut(10));
-        leftPanel.add(ucCheapest);
+        leftPanel.add(StrengthUpgradeCard1);
+        leftPanel.add(Box.createVerticalStrut(10));
+        leftPanel.add(StrengthUpgradeCard2);
+        leftPanel.add(Box.createVerticalStrut(10));
+        leftPanel.add(StrengthUpgradeCard3);
         leftPanel.add(Box.createVerticalStrut(10));
         titleScreenButton = new JButton("Return to title screen");
         titleScreenButton.addActionListener(e->{
             AreYouSureWindow areYouSureWindow = new AreYouSureWindow(this);
-
         });
         leftPanel.add(Box.createVerticalGlue()); // odtlaci cudlik dolu
         leftPanel.add(titleScreenButton);
@@ -81,11 +89,11 @@ public class MainWindow  {
     }
 
     public void closeWindow(){
-        gameWindow.dispose();
+        gameWindow.dispose();//muze byt i .setVisible(false); I guess
     }
     public void makeGifList(List<Icon> list){
         for (int i = 0; i < 20; i++) {
-            list.add(new ImageIcon(getClass().getResource("/Asset/P"+(i+1)+".jpg")));
+            list.add(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Asset/P" + (i + 1) + ".jpg"))));
         }
     }
 }

@@ -4,7 +4,7 @@ import java.awt.*;
 public class AreYouSureWindow {
     JFrame jFrame;
     JLabel text;
-    MainWindow m2 = new MainWindow();
+    MainWindow m2;
     JButton OK;
     JButton getBack;
 
@@ -12,7 +12,7 @@ public class AreYouSureWindow {
         m2 = mainWindow;
         jFrame = new JFrame("Return to TitleScreen");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(new Dimension(500, 300));
+        jFrame.setSize(new Dimension(900, 500));
         jFrame.setResizable(false);
         jFrame.setLayout(new BorderLayout());
         jFrame.setLocationRelativeTo(null);
@@ -54,7 +54,6 @@ public class AreYouSureWindow {
         buttonPanel.add(getBack);
 
         jFrame.add(buttonPanel, BorderLayout.CENTER);
-        //TODO aby se mainwindow smazal po proceed
         OK.addActionListener(e -> {
             m2.closeWindow();
             FirstWindow firstWindow = new FirstWindow();
