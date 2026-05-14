@@ -21,7 +21,7 @@ public class AreYouSureWindow {
     }
 
     public void init() {
-        text = new JLabel("are you SURE you want to leave the game?");
+        text = new JLabel("                     YOU SURE?");
         text.setOpaque(true);
         text.setFont(new Font("Comic Sans", Font.BOLD, 50));
         text.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
