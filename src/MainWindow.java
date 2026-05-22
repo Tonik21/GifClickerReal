@@ -16,14 +16,14 @@ public class MainWindow {
     JButton gifButton;
     JButton titleScreenButton;
     JLabel scoreLabel = new JLabel("Clicks: 0 | Strength: 1 | Multiplier: x1.0");
-
+//TODO Implement IdleUpgrades
     List<Icon> frames = new ArrayList<>();
-    Upgrade StrengthUpgrade1 = new Upgrade(100, 0.0, 3, "SilnoPrstI");
-    Upgrade StrengthUpgrade2 = new Upgrade(1000, 0.0, 7, "SilnoPrstII");
-    Upgrade StrengthUpgrade3 = new Upgrade(10000, 0.0, 10, "SilnoPrstIII");
-    Upgrade MultUpgrade1 = new Upgrade(150, 1.5, 0, "RychloKlikI");
-    Upgrade MultUpgrade2 = new Upgrade(1500, 3.0, 0, "RychloKlikII");
-    Upgrade MultUpgrade3 = new Upgrade(15000, 6.0, 0, "RychloKlikIII");
+    Upgrade StrengthUpgrade1 = new StrengthUpgrade(100, 3, "SilnoPrstI");
+    Upgrade StrengthUpgrade2 = new StrengthUpgrade(1000, 7, "SilnoPrstII");
+    Upgrade StrengthUpgrade3 = new StrengthUpgrade(10000,  10, "SilnoPrstIII");
+    Upgrade MultUpgrade1 = new MultUpgrade(150, 1.5,  "RychloKlikI");
+    Upgrade MultUpgrade2 = new MultUpgrade(1500, 3.0,  "RychloKlikII");
+    Upgrade MultUpgrade3 = new MultUpgrade(15000, 6.0,  "RychloKlikIII");
 
 
     UpgradeCard MultUpgradeCard1;

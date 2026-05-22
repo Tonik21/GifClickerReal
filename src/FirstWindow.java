@@ -39,9 +39,9 @@ public class FirstWindow {
         firstFrame.add(panel);
 
         endGameButton.addActionListener(e -> System.exit(0));
-        //TODO Saving The Game (Serialization)
         loadGameButton.addActionListener(e -> {
             Player loaded = Savegame.load();
+            loaded.calculateOffTime();
             new MainWindow(loaded);
             firstFrame.setVisible(false);
         });

@@ -15,29 +15,20 @@ public class UpgradeCard extends JPanel {
         nameLabel.setFont(new Font("Serif", Font.BOLD, 16));
 
         JLabel priceLabel = new JLabel("- Price: " + upgrade.getPriceOfUpgrade());
-        JLabel descLabel = new JLabel(isMultiplier ? "- Multiplier: x" + upgrade.getMultiplier(): "- Strength: +" + upgrade.getStrengthOfClicks());
+        JLabel descLabel = new JLabel(upgrade.description());
 
         JButton buyButton = new JButton("BUY");
         buyButton.setMaximumSize(new Dimension(80, 25));
         buyButton.setFont(new Font("Serif", Font.PLAIN, 10));
         buyButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         buyButton.addActionListener(e -> {
-            if (isMultiplier){
-                if (upgrade.buyMultBasedUpgrade(player)){
-                    buyButton.setText("OWNED");
-                    scorelabel.setText("Clicks: " + (int) player.getClicks()
-                            + " | Strength: " + player.getStrengthOfClicks()
-                            + " | Multiplier: x" + player.getClicksMultiplier());
-                    buyButton.setEnabled(false);
-                }
-            }else{
-               if (upgrade.buyClickStrengthBasedUpgrade(player)){
-                   buyButton.setText("OWNED");
-                   scorelabel.setText("Clicks: " + ((int) player.getClicks())
-                           + " | Strength: " + player.getStrengthOfClicks()
-                           + " | Multiplier: x" + player.getClicksMultiplier());
-                   buyButton.setEnabled(false);
-            }}
+            if (upgrade.buy(player)) {
+                buyButton.setText("OWNED");
+                buyButton.setEnabled(false);
+                scorelabel.setText("Clicks: " + (int) player.getClicks()
+                        + " | Strength: " + player.getStrengthOfClicks()
+                        + " | Multiplier: x" + player.getClicksMultiplier());
+            }
         });
         add(nameLabel);
         add(priceLabel);

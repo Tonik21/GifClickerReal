@@ -1,11 +1,12 @@
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Player implements Serializable {
     private double clicks;
     private int strengthOfClicks;
     private double clicksMultiplier;
+    private IdleUpgrade idleUpgrade ;
     private LocalDateTime timeOfExit;
     private LocalDateTime timeOfEntrance;
 
@@ -14,10 +15,16 @@ public class Player implements Serializable {
         this.clicksMultiplier = 1.0;
         this.strengthOfClicks = 1;
         this.timeOfExit = null;
+        this.idleUpgrade = null;
         this.timeOfEntrance = LocalDateTime.now();
     }
     public void addClicks(){
         clicks += strengthOfClicks * clicksMultiplier;
+    }
+    public void calculateOffTime() {
+        if (timeOfExit == null) return;
+        long secondsAway = Duration.between(timeOfEntrance, timeOfExit).getSeconds();
+        clicks += secondsAway * (strengthOfClicks * clicksMultiplier)*idleUpgrade.fraction;
     }
     public void recordExit(){
         this.timeOfExit = LocalDateTime.now();
@@ -45,5 +52,13 @@ public class Player implements Serializable {
 
     public void setClicksMultiplier(double clicksMultiplier) {
         this.clicksMultiplier = clicksMultiplier;
+    }
+
+    public IdleUpgrade getIdleUpgrade() {
+        return idleUpgrade;
+    }
+
+    public void setIdleUpgrade(IdleUpgrade idleUpgrade) {
+        this.idleUpgrade = idleUpgrade;
     }
 }

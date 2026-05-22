@@ -5,6 +5,7 @@ import java.io.*;
 public class Savegame extends JButton{
     public static final String SavePath = "GifClickerReal/src/save.dat";
     private Player player;
+    private IdleUpgrade upgrade;
 
     public Savegame(Player player){
         this.player = player;
@@ -29,6 +30,7 @@ public class Savegame extends JButton{
     public static Player load() {
         try (ObjectInputStream ois = new ObjectInputStream(
                 new FileInputStream(SavePath))) {
+
             return (Player) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Žádná uložená hra, začínám novou.");
