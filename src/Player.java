@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Player {
+public class Player implements Serializable {
     private double clicks;
     private int strengthOfClicks;
     private double clicksMultiplier;

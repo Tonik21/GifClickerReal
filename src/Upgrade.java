@@ -1,11 +1,11 @@
-public class Upgrades {
+public class Upgrade {
     private String nameOfUpgrade;
     private int priceOfUpgrade;
     private double multiplier;
     private int strengthOfClicks;
     private boolean isOwned;
 
-    public Upgrades(int priceOfUpgrade, double multiplier, int strengthOfClicks, String nameOfUpgrade) {
+    public Upgrade(int priceOfUpgrade, double multiplier, int strengthOfClicks, String nameOfUpgrade) {
         this.priceOfUpgrade = priceOfUpgrade;
         this.multiplier = multiplier;
         this.strengthOfClicks = strengthOfClicks;
@@ -15,7 +15,7 @@ public class Upgrades {
 
     public boolean buyMultBasedUpgrade(Player player) {
         if (player.getClicks() < priceOfUpgrade) {
-            System.out.println("Not enough Clicks you need: " + priceOfUpgrade + " clicks");
+
             return false;
         } else {
             player.setClicks(player.getClicks() - priceOfUpgrade);
