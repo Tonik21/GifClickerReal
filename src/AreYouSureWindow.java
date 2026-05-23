@@ -11,7 +11,6 @@ public class AreYouSureWindow {
     public AreYouSureWindow(MainWindow mainWindow) {
         m2 = mainWindow;
         jFrame = new JFrame("Return to TitleScreen");
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setSize(new Dimension(900, 500));
         jFrame.setResizable(false);
         jFrame.setLayout(new BorderLayout());

@@ -7,6 +7,7 @@ public class FirstWindow {
     private JButton playGameButton;
     private JButton endGameButton;
     private JButton loadGameButton;
+    private MainWindow  mw;
 
     public FirstWindow() {
         firstFrame = new JFrame("GIFCLICKER");
@@ -40,13 +41,17 @@ public class FirstWindow {
 
         endGameButton.addActionListener(e -> System.exit(0));
         loadGameButton.addActionListener(e -> {
-            Player loaded = Savegame.load();
-            loaded.calculateOffTime();
-            new MainWindow(loaded);
-            firstFrame.setVisible(false);
+
+            String name = JOptionPane.showInputDialog("Enter the registered name:");
+            if (name != null) {
+                Player loaded = Savegame.load(name);
+                loaded.calculateOffTime();
+                new MainWindow(loaded);
+                firstFrame.setVisible(false);
+            }
         });
         playGameButton.addActionListener(e -> {
-            MainWindow mw = new MainWindow(new Player());
+            mw = new MainWindow(new Player());
             firstFrame.setVisible(false);
         });
 

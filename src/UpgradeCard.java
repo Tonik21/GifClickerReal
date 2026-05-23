@@ -2,11 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class UpgradeCard extends JPanel {
-    public UpgradeCard(Upgrade upgrade, Player player, boolean isMultiplier, JLabel scorelabel) {
+    public UpgradeCard(Upgrade upgrade, Player player, MainWindow mainWindow) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setMaximumSize(new Dimension(180, 150));
-        setMinimumSize(new Dimension(180, 150));
-        setPreferredSize(new Dimension(180, 150));
+        setMaximumSize(new Dimension(150, 100));
+        setMinimumSize(new Dimension(150, 100));
+        setPreferredSize(new Dimension(150, 100));
         setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.GRAY),
                 BorderFactory.createEmptyBorder(5, 8, 5, 8)
@@ -17,21 +17,31 @@ public class UpgradeCard extends JPanel {
         JLabel priceLabel = new JLabel("- Price: " + upgrade.getPriceOfUpgrade());
         JLabel descLabel = new JLabel(upgrade.description());
 
-        JButton buyButton = new JButton("BUY");
+
+        JButton buyButton = new JButton();
         buyButton.setMaximumSize(new Dimension(80, 25));
         buyButton.setFont(new Font("Serif", Font.PLAIN, 10));
         buyButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        buyButton.addActionListener(e -> {
-            if (upgrade.buy(player)) {
-                buyButton.setText("OWNED");
-                buyButton.setEnabled(false);
-                scorelabel.setText("Clicks: " + (int) player.getClicks()
-                        + " | Strength: " + player.getStrengthOfClicks()
-                        + " | Multiplier: x" + player.getClicksMultiplier());
-            }
-        });
+
+
+        if (upgrade.isOwned()) {
+            buyButton.setText("OWNED");
+            buyButton.setEnabled(false);
+        } else {
+            buyButton.setText("BUY");
+            buyButton.addActionListener(e -> {
+                if (upgrade.buy(player)) {
+                    buyButton.setText("OWNED");
+                    buyButton.setEnabled(false);
+                    mainWindow.updateScoreLabel();
+                }
+            });
+        }
         add(nameLabel);
         add(priceLabel);
         add(descLabel);
         add(buyButton);
-}}
+}
+
+
+}

@@ -15,23 +15,12 @@ public class MainWindow {
     JPanel leftPanel;
     JButton gifButton;
     JButton titleScreenButton;
+    JPanel idlePanel;
     JLabel scoreLabel = new JLabel("Clicks: 0 | Strength: 1 | Multiplier: x1.0");
-//TODO Implement IdleUpgrades
+
     List<Icon> frames = new ArrayList<>();
-    Upgrade StrengthUpgrade1 = new StrengthUpgrade(100, 3, "SilnoPrstI");
-    Upgrade StrengthUpgrade2 = new StrengthUpgrade(1000, 7, "SilnoPrstII");
-    Upgrade StrengthUpgrade3 = new StrengthUpgrade(10000,  10, "SilnoPrstIII");
-    Upgrade MultUpgrade1 = new MultUpgrade(150, 1.5,  "RychloKlikI");
-    Upgrade MultUpgrade2 = new MultUpgrade(1500, 3.0,  "RychloKlikII");
-    Upgrade MultUpgrade3 = new MultUpgrade(15000, 6.0,  "RychloKlikIII");
 
 
-    UpgradeCard MultUpgradeCard1;
-    UpgradeCard MultUpgradeCard2;
-    UpgradeCard MultUpgradeCard3;
-    UpgradeCard StrengthUpgradeCard1;
-    UpgradeCard StrengthUpgradeCard2;
-    UpgradeCard StrengthUpgradeCard3;
 
     public MainWindow(Player player) {
         this.pl1 = player;
@@ -47,14 +36,6 @@ public class MainWindow {
     }
 
     public void init() {
-        MultUpgradeCard1 = new UpgradeCard(MultUpgrade1, pl1, true,scoreLabel);
-        MultUpgradeCard2 = new UpgradeCard(MultUpgrade2, pl1,  true,scoreLabel);
-        MultUpgradeCard3 = new UpgradeCard(MultUpgrade3, pl1,  true,scoreLabel);
-        StrengthUpgradeCard1 = new UpgradeCard(StrengthUpgrade1, pl1,  false,scoreLabel);
-        StrengthUpgradeCard2 = new UpgradeCard(StrengthUpgrade2, pl1,  false,scoreLabel);
-        StrengthUpgradeCard3 = new UpgradeCard(StrengthUpgrade3, pl1,  false,scoreLabel);
-
-
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
         gameWindow.add(scoreLabel, BorderLayout.NORTH);
 
@@ -70,9 +51,7 @@ public class MainWindow {
             @Override
             public void mouseClicked(MouseEvent e) {
                 pl1.addClicks();
-                scoreLabel.setText("Clicks: " + (int) pl1.getClicks()
-                        + " | Strength: " + pl1.getStrengthOfClicks()
-                        + " | Multiplier: x" + pl1.getClicksMultiplier());
+                updateScoreLabel();
                 gifButton.setIcon(frames.get(counter));
                 counter = (counter + 1) % frames.size();
             }
@@ -92,24 +71,18 @@ public class MainWindow {
         leftTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
         leftPanel.add(leftTitle);
         leftPanel.add(Box.createVerticalStrut(10));
-        leftPanel.add(StrengthUpgradeCard1);
-        leftPanel.add(Box.createVerticalStrut(10));
-        leftPanel.add(StrengthUpgradeCard2);
-        leftPanel.add(Box.createVerticalStrut(10));
-        leftPanel.add(StrengthUpgradeCard3);
-        leftPanel.add(Box.createVerticalGlue());
 
-        JPanel bottomButtons = new JPanel(new GridLayout(2, 1, 0, 5));
-        bottomButtons.setMaximumSize(new Dimension(180, 80));
 
-        Savegame saveButton = new Savegame(pl1);
-        titleScreenButton = new JButton("Title screen");
-        titleScreenButton.addActionListener(e -> new AreYouSureWindow(this));
+        idlePanel = new JPanel();
+        idlePanel.setPreferredSize(new Dimension(800, 200));
+        idlePanel.setLayout(new BoxLayout(idlePanel, BoxLayout.X_AXIS));
+        idlePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        idlePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        bottomButtons.add(saveButton);
-        bottomButtons.add(titleScreenButton);
-        leftPanel.add(bottomButtons);
-
+        JLabel idleTitle = new JLabel("Idle");
+        idleTitle.setFont(new Font("Serif", Font.BOLD, 16));
+        idleTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+        idlePanel.add(idleTitle);
 
         rightPanel = new JPanel();
         rightPanel.setPreferredSize(new Dimension(300, 1000));
@@ -121,20 +94,48 @@ public class MainWindow {
         rightTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
         rightPanel.add(rightTitle);
         rightPanel.add(Box.createVerticalStrut(10));
-        rightPanel.add(MultUpgradeCard1);
-        rightPanel.add(Box.createVerticalStrut(10));
-        rightPanel.add(MultUpgradeCard2);
-        rightPanel.add(Box.createVerticalStrut(10));
-        rightPanel.add(MultUpgradeCard3);
 
+        for (Upgrade upgrade : pl1.getUpgrades()) {
+            UpgradeCard card = new UpgradeCard(upgrade, pl1, this);
+            switch (upgrade.getType()) {
+                case MULTIPLIER :
+                    rightPanel.add(card);rightPanel.add(Box.createVerticalStrut(10));break;
+                case STRENGTH :
+                    leftPanel.add(card);leftPanel.add(Box.createVerticalStrut(10));break;
+                case IDLE :
+                    idlePanel.add(card); idlePanel.add(Box.createVerticalStrut(10));break;
+            }
+
+
+        }
+
+        JPanel bottomButtons = new JPanel(new GridLayout(2, 1, 0, 5));
+        bottomButtons.setMaximumSize(new Dimension(180, 80));
+
+        Savegame saveButton = new Savegame(pl1);
+        titleScreenButton = new JButton("Title screen");
+        titleScreenButton.addActionListener(e -> new AreYouSureWindow(this));
+
+        bottomButtons.add(saveButton);
+        bottomButtons.add(titleScreenButton);
+        leftPanel.add(Box.createVerticalGlue());
+        leftPanel.add(bottomButtons);
         gameWindow.add(leftPanel, BorderLayout.WEST);
         gameWindow.add(rightPanel, BorderLayout.EAST);
+        JPanel southWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        southWrapper.setPreferredSize(new Dimension(1400, 220));
+        southWrapper.add(idlePanel);
+        gameWindow.add(southWrapper, BorderLayout.SOUTH);
     }
 
     public void closeWindow() {
         gameWindow.dispose();
     }
-
+    public void updateScoreLabel(){
+        scoreLabel.setText("Clicks: " + (int) pl1.getClicks()
+                + " | Strength: " + pl1.getStrengthOfClicks()
+                + " | Multiplier: x" + pl1.getClicksMultiplier());
+    }
     public void makeGifList(List<Icon> list) {
         for (int i = 0; i < 20; i++) {
             list.add(new ImageIcon(Objects.requireNonNull(

@@ -1,9 +1,14 @@
 public class StrengthUpgrade extends Upgrade{
     private int strengthOfClicks;
 
-    public StrengthUpgrade(int priceOfUpgrade, int strengthOfClicks, String nameOfUpgrade) {
+    public StrengthUpgrade(int priceOfUpgrade, String nameOfUpgrade, int strengthOfClick) {
         super(priceOfUpgrade, nameOfUpgrade);
-        this.strengthOfClicks = strengthOfClicks;
+        this.strengthOfClicks = strengthOfClick;
+    }
+
+    @Override
+    public void applyEffect(Player player) {
+        player.setStrengthOfClicks(player.getStrengthOfClicks() + strengthOfClicks);
     }
 
     @Override
@@ -14,7 +19,7 @@ public class StrengthUpgrade extends Upgrade{
                 return false;
             } else {
                 player.setClicks(player.getClicks() - getPriceOfUpgrade());
-                player.setStrengthOfClicks(player.getStrengthOfClicks() + strengthOfClicks);
+                applyEffect(player);
                 setOwned(true);
                 return true;
             }
@@ -24,5 +29,10 @@ public class StrengthUpgrade extends Upgrade{
     @Override
     public String description() {
         return "-Strength: " + strengthOfClicks;
+    }
+
+    @Override
+    public UpgradeType getType() {
+        return UpgradeType.STRENGTH;
     }
 }
