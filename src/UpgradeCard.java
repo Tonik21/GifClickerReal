@@ -34,6 +34,7 @@ public class UpgradeCard extends JPanel {
                     buyButton.setText("OWNED");
                     buyButton.setEnabled(false);
                     mainWindow.updateScoreLabel();
+
                 }
             });
         }

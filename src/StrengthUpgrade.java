@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class StrengthUpgrade extends Upgrade{
     private int strengthOfClicks;
 
@@ -15,7 +17,7 @@ public class StrengthUpgrade extends Upgrade{
     public boolean buy(Player player) {
 
             if (player.getClicks() < getPriceOfUpgrade()) {
-                System.out.println("Not enough Clicks you need: " + getPriceOfUpgrade()+ " clicks");
+                 notEnoughMoney();
                 return false;
             } else {
                 player.setClicks(player.getClicks() - getPriceOfUpgrade());
@@ -34,5 +36,10 @@ public class StrengthUpgrade extends Upgrade{
     @Override
     public UpgradeType getType() {
         return UpgradeType.STRENGTH;
+    }
+
+    @Override
+    public void notEnoughMoney() {
+        JOptionPane.showMessageDialog(null, " Not enough Clicks you need: " + getPriceOfUpgrade()+ " clicks");
     }
 }

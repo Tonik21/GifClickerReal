@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class MultUpgrade extends Upgrade{
     private double multiplier;
     public MultUpgrade(int priceOfUpgrade,String nameOfUpgrade, double multiplier ) {
@@ -13,6 +15,7 @@ public class MultUpgrade extends Upgrade{
     @Override
     public boolean buy(Player player) {
         if (player.getClicks() < getPriceOfUpgrade()) {
+            notEnoughMoney();
             return false;
         } else {
             player.setClicks(player.getClicks() - getPriceOfUpgrade());
@@ -31,5 +34,10 @@ public class MultUpgrade extends Upgrade{
     @Override
     public UpgradeType getType() {
         return UpgradeType.MULTIPLIER;
+    }
+
+    @Override
+    public void notEnoughMoney() {
+        JOptionPane.showMessageDialog(null,"Not enough Clicks you need: " + getPriceOfUpgrade()+ " clicks");
     }
 }

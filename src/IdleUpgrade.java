@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class IdleUpgrade extends Upgrade{
     public double fraction;
     public IdleUpgrade(int priceOfUpgrade, String nameOfUpgrade, double fraction) {
@@ -12,7 +14,10 @@ public class IdleUpgrade extends Upgrade{
 
     @Override
     public boolean buy(Player player) {
-        if (isOwned() || player.getClicks() < getPriceOfUpgrade()) return false;
+        if (isOwned() || player.getClicks() < getPriceOfUpgrade()){
+            JOptionPane.showMessageDialog(null, "Not enough Clicks you need: " + getPriceOfUpgrade() + " clicks");
+            return false;
+    }
         player.setClicks(player.getClicks() - getPriceOfUpgrade());
         applyEffect(player);
         setOwned(true);
@@ -27,5 +32,10 @@ public class IdleUpgrade extends Upgrade{
     @Override
     public UpgradeType getType() {
         return UpgradeType.IDLE;
+    }
+
+    @Override
+    public void notEnoughMoney() {
+        JOptionPane.showMessageDialog(null,"Not enough Clicks you need: " + getPriceOfUpgrade()+ " clicks");
     }
 }

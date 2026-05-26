@@ -1,5 +1,9 @@
+import javax.swing.*;
 import java.io.Serializable;
 
+/**
+ * This class is a pattern for all of the other upgrades
+ */
 public abstract class Upgrade implements Serializable {
     private String nameOfUpgrade;
     private int priceOfUpgrade;
@@ -14,6 +18,7 @@ public abstract class Upgrade implements Serializable {
     public abstract boolean buy(Player player);
     public abstract String description();
     public abstract UpgradeType getType();
+    public abstract void notEnoughMoney();
 
     public String getNameOfUpgrade() {
         return nameOfUpgrade;

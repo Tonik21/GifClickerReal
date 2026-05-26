@@ -114,7 +114,14 @@ public class MainWindow {
 
         Savegame saveButton = new Savegame(pl1);
         titleScreenButton = new JButton("Title screen");
-        titleScreenButton.addActionListener(e -> new AreYouSureWindow(this));
+        titleScreenButton.addActionListener(e -> {
+            int answer = JOptionPane.showConfirmDialog(null, "Are you sure?","Choice", JOptionPane.YES_NO_OPTION);
+            if (answer == JOptionPane.YES_OPTION){
+                FirstWindow firstWindow = new FirstWindow();
+                gameWindow.dispose();
+            }
+
+        });
 
         bottomButtons.add(saveButton);
         bottomButtons.add(titleScreenButton);
@@ -126,10 +133,6 @@ public class MainWindow {
         southWrapper.setPreferredSize(new Dimension(1400, 220));
         southWrapper.add(idlePanel);
         gameWindow.add(southWrapper, BorderLayout.SOUTH);
-    }
-
-    public void closeWindow() {
-        gameWindow.dispose();
     }
     public void updateScoreLabel(){
         scoreLabel.setText("Clicks: " + (int) pl1.getClicks()

@@ -1,4 +1,3 @@
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -35,13 +34,7 @@ public class Player implements Serializable {
 
 
     }
-    public void applyOwnedUpgrades() {
-        for (Upgrade upgrade : upgrades) {
-            if (upgrade.isOwned()) {
-                upgrade.applyEffect(this);
-            }
-        }
-    }
+
     public void addClicks(){
         clicks += strengthOfClicks * clicksMultiplier;
     }
