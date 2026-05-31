@@ -38,10 +38,14 @@ public class Player implements Serializable {
     public void addClicks(){
         clicks += strengthOfClicks * clicksMultiplier;
     }
-    public void calculateOffTime() {
-        if (timeOfExit == null||idleUpgrade == null) return;
-        long secondsAway = Duration.between(timeOfEntrance, timeOfExit).getSeconds();
-        clicks += secondsAway * (strengthOfClicks * clicksMultiplier)*idleUpgrade.fraction;
+    public double calculateOffTime() {
+        if (timeOfExit == null||idleUpgrade == null) return 0;
+
+        long secondsAway = Duration.between(timeOfEntrance,timeOfExit ).getSeconds();
+        return secondsAway * (strengthOfClicks + clicksMultiplier)*idleUpgrade.fraction;
+    }
+    public void resetEntrance(){
+        this.timeOfEntrance = LocalDateTime.now();
     }
     public void recordExit(){
         this.timeOfExit = LocalDateTime.now();

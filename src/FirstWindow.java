@@ -45,13 +45,15 @@ public class FirstWindow {
             String name = JOptionPane.showInputDialog("Enter the registered name:");
             if (name != null) {
                 Player loaded = Savegame.load(name);
-                loaded.calculateOffTime();
-                new MainWindow(loaded);
+                double offlineMoney=loaded.calculateOffTime();
+                loaded.setClicks(loaded.getClicks()+offlineMoney);
+                loaded.resetEntrance();
+                new MainWindow(loaded, offlineMoney);
                 firstFrame.setVisible(false);
             }
         });
         playGameButton.addActionListener(e -> {
-            mw = new MainWindow(new Player());
+            mw = new MainWindow(new Player(),0);
             firstFrame.setVisible(false);
         });
 

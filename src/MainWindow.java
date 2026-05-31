@@ -22,8 +22,9 @@ public class MainWindow {
 
 
 
-    public MainWindow(Player player) {
+    public MainWindow(Player player, double offlineEarned) {
         this.pl1 = player;
+
         makeGifList(frames);
         gameWindow = new JFrame("CLICK CLICK CLICK!");
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,6 +34,9 @@ public class MainWindow {
         gameWindow.setLocationRelativeTo(null);
         init();
         gameWindow.setVisible(true);
+        if (offlineEarned>0){
+            AwayScreen aS = new AwayScreen(gameWindow, offlineEarned);
+        }
     }
 
     public void init() {
