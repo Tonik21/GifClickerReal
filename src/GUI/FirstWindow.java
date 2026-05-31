@@ -1,6 +1,14 @@
+package GUI;
+
+import GameFunc.Player;
+import GameFunc.Savegame;
+
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * First Window in which there are buttons that Load the game, Start it and End it
+ */
 public class FirstWindow {
     private JFrame firstFrame;
     private JLabel introText;
@@ -21,19 +29,24 @@ public class FirstWindow {
     }
 
     public void init() {
-        introText = new JLabel("Welcome to the game", JLabel.CENTER);
-        introText.setOpaque(true);
-        introText.setBackground(new Color(100, 200, 100, 25)); // Pro design
-        introText.setFont(new Font("Comic Sans", Font.BOLD, 50));
-        introText.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+        firstFrame.getContentPane().setBackground(new Color(30, 30, 30));
+
+
+        introText = new JLabel("GIF CLICKER", JLabel.CENTER);
+        introText.setFont(new Font("Serif", Font.BOLD, 55));
+        introText.setForeground(Color.WHITE);
+        introText.setBorder(BorderFactory.createEmptyBorder(60, 0, 0, 0));
         firstFrame.add(introText, BorderLayout.NORTH);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1, 10, 10));
+        panel.setOpaque(false);
+        panel.setLayout(new GridLayout(3, 1, 0, 12));
         panel.setBorder(BorderFactory.createEmptyBorder(80, 250, 80, 250));
-        playGameButton = new JButton("Start Game");
-        loadGameButton = new JButton("Load Game");
-        endGameButton = new JButton("Exit Game");
+
+        playGameButton = createStyledButton("Start Game");
+        loadGameButton = createStyledButton("Load Game");
+        endGameButton  = createStyledButton("Exit Game");
+
         panel.add(playGameButton);
         panel.add(loadGameButton);
         panel.add(endGameButton);
@@ -41,22 +54,34 @@ public class FirstWindow {
 
         endGameButton.addActionListener(e -> System.exit(0));
         loadGameButton.addActionListener(e -> {
-
             String name = JOptionPane.showInputDialog("Enter the registered name:");
             if (name != null) {
                 Player loaded = Savegame.load(name);
-                double offlineMoney=loaded.calculateOffTime();
-                loaded.setClicks(loaded.getClicks()+offlineMoney);
+                double offlineMoney = loaded.calculateOffTime();
+                loaded.setClicks(loaded.getClicks() + offlineMoney);
                 loaded.resetEntrance();
                 new MainWindow(loaded, offlineMoney);
                 firstFrame.setVisible(false);
             }
         });
         playGameButton.addActionListener(e -> {
-            mw = new MainWindow(new Player(),0);
+            mw = new MainWindow(new Player(), 0);
             firstFrame.setVisible(false);
         });
+    }
 
+    private JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Serif", Font.PLAIN, 18));
+        button.setForeground(Color.WHITE);
+        button.setBackground(new Color(55, 55, 55));
+        button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(80, 80, 80)),
+                BorderFactory.createEmptyBorder(8, 20, 8, 20)
+        ));
+        button.setFocusPainted(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        return button;
     }
 }

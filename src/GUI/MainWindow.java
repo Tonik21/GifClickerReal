@@ -1,3 +1,7 @@
+package GUI;
+
+import GameFunc.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -6,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Contains the Main window with the click button and panels containing the different types of updates
+ */
 public class MainWindow {
     Player pl1;
     int counter = 0;
@@ -102,11 +109,11 @@ public class MainWindow {
         for (Upgrade upgrade : pl1.getUpgrades()) {
             UpgradeCard card = new UpgradeCard(upgrade, pl1, this);
             switch (upgrade.getType()) {
-                case MULTIPLIER :
+                case UpgradeType.MULTIPLIER :
                     rightPanel.add(card);rightPanel.add(Box.createVerticalStrut(10));break;
-                case STRENGTH :
+                case UpgradeType.STRENGTH :
                     leftPanel.add(card);leftPanel.add(Box.createVerticalStrut(10));break;
-                case IDLE :
+                case UpgradeType.IDLE :
                     idlePanel.add(card); idlePanel.add(Box.createVerticalStrut(10));break;
             }
 
@@ -143,6 +150,10 @@ public class MainWindow {
                 + " | Strength: " + pl1.getStrengthOfClicks()
                 + " | Multiplier: x" + pl1.getClicksMultiplier());
     }
+    /**
+     * Loads all 20 game frames from the Asset folder into the provided list.
+     * @param list the list in which there will be the images
+     */
     public void makeGifList(List<Icon> list) {
         for (int i = 0; i < 20; i++) {
             list.add(new ImageIcon(Objects.requireNonNull(

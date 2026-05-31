@@ -1,11 +1,15 @@
+package GameFunc;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 
+/**
+ *  JButton that handles Save and Load Methods
+ */
 public class Savegame extends JButton{
     private static String SavePath;
     private Player player;
-    private IdleUpgrade upgrade;
 
     public Savegame(Player player){
         this.player = player;
@@ -26,6 +30,9 @@ public class Savegame extends JButton{
         });
     }
 
+    /**
+     * Saves Player to a .dat file, records time of exit for later calculations
+     */
     public void saveGame(){
         player.recordExit();
 
@@ -37,6 +44,11 @@ public class Savegame extends JButton{
         }
     }
 
+    /**
+     * loads the .dat file that was saved with the saveGame() method by name.
+     * @param name for verification
+     * @return State of Player in the save file
+     */
     public static Player load(String name) {
         SavePath = new File("data/" + name + ".dat").getPath();
         try (ObjectInputStream ois = new ObjectInputStream(

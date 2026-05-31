@@ -1,4 +1,5 @@
-import javax.swing.*;
+package GameFunc;
+
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,12 @@ public abstract class Upgrade implements Serializable {
         this.isOwned = false;
         this.nameOfUpgrade = nameOfUpgrade;
     }
+
+    /**
+     * For buying upgrades for player
+     * @param player player buying the upgrade
+     * @return true if enough money(clicks)
+     */
     public abstract boolean buy(Player player);
     public abstract String description();
     public abstract UpgradeType getType();

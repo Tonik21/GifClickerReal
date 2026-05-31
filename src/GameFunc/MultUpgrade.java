@@ -1,5 +1,10 @@
+package GameFunc;
+
 import javax.swing.*;
 
+/**
+ * upgrade which increases the click multiplier
+ */
 public class MultUpgrade extends Upgrade{
     private double multiplier;
     public MultUpgrade(int priceOfUpgrade,String nameOfUpgrade, double multiplier ) {

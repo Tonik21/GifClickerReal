@@ -1,5 +1,10 @@
+package GameFunc;
+
 import javax.swing.*;
 
+/**
+ * upgrade which enables idle earning and also increases the rate
+ */
 public class IdleUpgrade extends Upgrade{
     public double fraction;
     public IdleUpgrade(int priceOfUpgrade, String nameOfUpgrade, double fraction) {

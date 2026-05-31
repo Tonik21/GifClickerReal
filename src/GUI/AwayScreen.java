@@ -1,6 +1,11 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Dialog shown after loading game save, it displays the amount of clicks gotten while offline
+ */
 public class AwayScreen extends JDialog {
 
     public AwayScreen(JFrame parent, double earnedClicks) {

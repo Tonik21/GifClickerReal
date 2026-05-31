@@ -1,4 +1,4 @@
-
+import GUI.FirstWindow;
 
 public class Main {
     public static void main(String[] args) {

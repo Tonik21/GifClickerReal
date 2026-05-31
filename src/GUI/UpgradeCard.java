@@ -1,16 +1,21 @@
+package GUI;
+
+import GameFunc.Player;
+import GameFunc.Upgrade;
+
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ *  A panel in which represents an upgrade in teh shop
+ */
 public class UpgradeCard extends JPanel {
     public UpgradeCard(Upgrade upgrade, Player player, MainWindow mainWindow) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setMaximumSize(new Dimension(150, 100));
         setMinimumSize(new Dimension(150, 100));
         setPreferredSize(new Dimension(150, 100));
-        setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.GRAY),
-                BorderFactory.createEmptyBorder(5, 8, 5, 8)
-        ));
+        setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(5, 8, 5, 8)));
         JLabel nameLabel = new JLabel(upgrade.getNameOfUpgrade());
         nameLabel.setFont(new Font("Serif", Font.BOLD, 16));
 
@@ -42,7 +47,7 @@ public class UpgradeCard extends JPanel {
         add(priceLabel);
         add(descLabel);
         add(buyButton);
-}
+    }
 
 
 }

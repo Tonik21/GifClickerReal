@@ -1,5 +1,10 @@
+package GameFunc;
+
 import javax.swing.*;
 
+/**
+ * upgrade which increases the click Strength
+ */
 public class StrengthUpgrade extends Upgrade{
     private int strengthOfClicks;
 
